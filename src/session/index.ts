@@ -1,9 +1,9 @@
 import { UsersRepository } from '../user/repositories/usersRepository';
-import { SessionController } from './createSessionController';
+import { CreateSessionController } from './createSessionController';
 import { CreateSessionUseCase } from './createSessionUseCase';
 
 const usersRepository = new UsersRepository();
 const createSessionUseCase = new CreateSessionUseCase(usersRepository);
-const sessionController = new SessionController(createSessionUseCase);
+const createSessionController = new CreateSessionController(createSessionUseCase);
 
-export { sessionController };
+export { createSessionController };

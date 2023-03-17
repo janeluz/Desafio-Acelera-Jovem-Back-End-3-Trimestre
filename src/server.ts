@@ -7,7 +7,8 @@ async function start() {
 
  await mongoose
   .connect(
-    `mongodb+srv://jane:wyWCyb215YjL5FYQ@apicluster.ncjxjuq.mongodb.net/tasks?retryWrites=true&w=majority`
+    `mongodb+srv://jane:wyWCyb215YjL5FYQ@apicluster.ncjxjuq.mongodb.net/tasks?retryWrites=true&w=majority
+    `
   );
   
     console.log('connect sucess mongodb');

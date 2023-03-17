@@ -1,9 +1,9 @@
 import { DeleteTaskUseCase } from './deleteUseCase ';
-
+import { Request, Response } from 'express';
 class DeleteController {
   constructor(private deleteTaskUseCase: DeleteTaskUseCase) {}
 
-  async handle(request: any, response: any): Promise<any> {
+  async handle(request: Request, response: Response): Promise<Response> {
     try {
       const { id } = request.params;
       const tasks = await this.deleteTaskUseCase.execute(id);

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { CreateSessionUseCase } from './createSessionUseCase';
 
-class SessionController {
+class CreateSessionController {
   constructor(private createSessionUseCase: CreateSessionUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
@@ -13,4 +13,4 @@ class SessionController {
   }
 }
 
-export { SessionController };
+export { CreateSessionController };

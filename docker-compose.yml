@@ -1,27 +1,27 @@
-version: '3.9'
+# version: '3.1'
 
-services:
+# services:
 
-mongo_db:
-  container_name: db_container
-  image: mongo:latest
-  restart: always
-  volumes:
-    - mongo_db:/data/db
+# mongo_db:
+#   container_name: db_container
+#   image: mongo:latest
+#   restart: always
+#   volumes:
+#     - mongo_db:/data/db
 
-  api:
-    build: .
-    ports:
-    - 4000:3002
-    enviroment:
-        PORT:3002
-          MONGODB_URI: mongodb://mongo_db:27017
-          DB_NAME: API_TASKS
-          NAME: TASKS
-        depends_on:
-          - mongo_db
+#   api:
+#     build: .
+#     ports:
+#     - 4000:3002
+#     enviroment:
+#           PORT: 3002
+#           MONGODB_URI: mongodb://mongo_db:27017
+#           DB_NAME: API_TASKS
+#           NAME: TASKS
+#     depends_on:
+#           - mongo_db
 
-    volumes:
-      mongo_db: {}
+#     volumes:
+#       mongo_db: {}
 
 
