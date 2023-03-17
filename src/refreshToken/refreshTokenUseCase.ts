@@ -1,63 +1,63 @@
-// import auth from "../config/auth";
-// import { IUsersTokensRepository } from "../user/dto/IUsersTokenRepository";
-// import { sign, verify } from "jsonwebtoken";
-// import { UserToken } from "../user/entities/userToken";
-// import { AppError } from "errors/error";
+import auth from "../config/auth";
+import { IUsersTokensRepository } from "../user/dto/IUsersTokenRepository";
+import { sign, verify } from "jsonwebtoken";
+import { UserToken } from "../user/entities/userToken";
+import { AppError } from "errors/error";
 
-// interface IPayload {
-//     id: string;
-//     email: string;
-//   }
+interface IPayload {
+    id: string;
+    email: string;
+  }
   
-//   interface ITokenResponse {
-//     token: string;
-//     refresh_token: string;
-//   }
+  interface ITokenResponse {
+    token: string;
+    refresh_token: string;
+  }
 
 
-// class RefreshTokenUseCase {
-//   constructor( private usersTokensRepository: IUsersTokensRepository){
-//     }
+class RefreshTokenUseCase {
+  constructor( private usersTokensRepository: IUsersTokensRepository){
+    }
 
-//  async execute(token: string): Promise<ITokenResponse> {
-//     const { email, id } = verify(token, auth.secret_refresh_token) as IPayload;
+ async execute(token: string): Promise<ITokenResponse> {
+    const { email, id } = verify(token, auth.secret_refresh_token) as IPayload;
 
-//     const user_id = id;
+    const user_id = id;
 
-//     const userToken = await UserToken.findById(
-//       user_id,
-//       token
-//     );
+    const userToken = await UserToken.findById(
+      user_id,
+      token
+    );
 
-//     if (!userToken) {
-//       throw new AppError("Refresh Token does not exists!");
-//     }
+    if (!userToken) {
+      throw new AppError("Refresh Token does not exists!");
+    }
 
-//     await UserToken.deleteOne(userToken._id);
+    await UserToken.deleteOne(userToken._id);
 
-//     const refresh_token = sign({ email }, auth.secret_refresh_token, {
-//       subject: id,
-//       expiresIn: auth.expires_in_refresh_token,
-//     });
+    const refresh_token = sign({ email }, auth.secret_refresh_token, {
+      subject: id,
+      expiresIn: auth.expires_in_refresh_token,
+    });
 
    
 
-//     await this.usersTokensRepository.create({
-//     expires_date: new Date(),                                     
-//       refresh_token,
-//       user_id,
-//     });
+    await this.usersTokensRepository.create({
+    expires_date: new Date(),                                     
+      refresh_token,
+      user_id,
+    });
 
-//     const newToken = sign({}, auth.secretToken, {
-//       subject: user_id,
-//       expiresIn: auth.expiresInToken,
-//     });
+    const newToken = sign({}, auth.secretToken, {
+      subject: user_id,
+      expiresIn: auth.expiresInToken,
+    });
 
-//     return {
-//       refresh_token,
-//       token: newToken,
-//     };
-//   }
-// }
+    return {
+      refresh_token,
+      token: newToken,
+    };
+  }
+}
 
-// export { RefreshTokenUseCase };
+export { RefreshTokenUseCase };
