@@ -15,6 +15,7 @@ interface IResponse {
     email: string;
   };
   token: string;
+  
 }
 
 class CreateSessionUseCase {
@@ -35,11 +36,21 @@ class CreateSessionUseCase {
       throw new Error('Email or password incorrect!');
     }
 
-    const token = sign({ email }, secretToken, {
+    const token = sign({}, secretToken, {
       //subject é o id do usuário que vai gerar o token
-      subject: email,
+      subject: user.id,
       expiresIn: expiresInToken,
     });
+
+    
+
+    // await this.usersTokensRepository.create({
+    //   user_id: user.id,
+    //   refresh_token: refresh_token,
+    //   expires_date: refresh_token_expires_date,
+      
+
+    // });
 
     const tokenReturn: IResponse = {
       token,
@@ -47,6 +58,7 @@ class CreateSessionUseCase {
         name: user.name,
         email: user.email,
       },
+  
     };
 
     return tokenReturn;

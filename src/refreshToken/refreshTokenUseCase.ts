@@ -5,7 +5,7 @@ import { UserToken } from "../user/entities/userToken";
 import { AppError } from "errors/error";
 
 interface IPayload {
-    id: string;
+    sub: string;
     email: string;
   }
   
@@ -20,9 +20,9 @@ class RefreshTokenUseCase {
     }
 
  async execute(token: string): Promise<ITokenResponse> {
-    const { email, id } = verify(token, auth.secret_refresh_token) as IPayload;
+    const { email, sub } = verify(token, auth.secret_refresh_token) as IPayload;
 
-    const user_id = id;
+    const user_id = sub;
 
     const userToken = await UserToken.findById(
       user_id,
@@ -36,12 +36,11 @@ class RefreshTokenUseCase {
     await UserToken.deleteOne(userToken._id);
 
     const refresh_token = sign({ email }, auth.secret_refresh_token, {
-      subject: id,
+      subject: sub,
       expiresIn: auth.expires_in_refresh_token,
     });
 
-   
-
+    
     await this.usersTokensRepository.create({
     expires_date: new Date(),                                     
       refresh_token,

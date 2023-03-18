@@ -1,11 +1,11 @@
 import { IUsersRepository } from '../../../user/dto/IUsersRepository';
 import { hash } from 'bcryptjs';
-import { ICreateUser } from '../../../user/dto/userDto';
+import { ICreateUserDTO } from '../../dto/ICreateUserDTO';
 
 class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  async execute({ name, email, password }: ICreateUser): Promise<void> {
+  async execute({ name, email, password }: ICreateUserDTO): Promise<void> {
     const usersAlreadyExists = await this.usersRepository.findByEmail(email);
 
     if (usersAlreadyExists) {

@@ -1,9 +1,9 @@
-import { ICreateUser } from './userDto';
+import { ICreateUserDTO } from './ICreateUserDTO';
 
 interface IUsersRepository {
   findById(id: string): unknown;
   findByEmail(email: string): Promise<any>;
-  create({ name, email, password }: ICreateUser): Promise<any>;
+  create({ name, email, password }: ICreateUserDTO): Promise<any>;
   findAllUsers(): Promise<any>;
 }
 

@@ -1,6 +1,6 @@
-import  { connection } from 'mongoose';
+import { connection } from 'mongoose';
 import { IUsersRepository } from 'user/dto/IUsersRepository';
-import { ICreateUser } from 'user/dto/userDto';
+import { ICreateUserDTO } from 'user/dto/ICreateUserDTO';
 import { User } from '../../user/entities/user';
 
 class UsersRepository implements IUsersRepository {
@@ -8,7 +8,7 @@ class UsersRepository implements IUsersRepository {
     connection;
   }
 
-  async create({ name, email, password }: ICreateUser): Promise<any> {
+  async create({ name, email, password }: ICreateUserDTO): Promise<any> {
     const user = User.create({ name, email, password });
     return user;
   }
@@ -18,7 +18,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   async findByEmail(email: string): Promise<any> {
-    const user = await User.findOne({email: email});
+    const user = await User.findOne({ email: email });
     return user as any;
   }
 
