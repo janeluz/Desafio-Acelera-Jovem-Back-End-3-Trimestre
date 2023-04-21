@@ -3,8 +3,8 @@ name: Run E2E Tests
 on: [pull_request]
 
 jobs:
-  run-e2e-tests:
-    name: Run E2E Tests
+  build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -15,9 +15,22 @@ jobs:
           node-version: 18
           cache: 'yarn'
 
-      - run: yarn ci
-
-      - run: yarn test:e2e
-        env:
-          JWT_SECRET: teste
-          DATABASEURL:
+      - name: Install dependencies
+        run: yarn ci
+        
+       
+      - name: Build
+        run: yarn build
+        
+        
+      - name: Test
+        run: yarn test
+        
+        
+      - name: Lint
+        run: yarn lint
+        
+      
+      - name: Ts-prune
+        run: yarn ts-prune
+      
