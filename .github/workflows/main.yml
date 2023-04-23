@@ -14,7 +14,7 @@ jobs:
            node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: yarn ci
+        run: yarn 
 
       - name: Build
         run: yarn build
